@@ -32,7 +32,7 @@ export const Login=({setCurrentUser,currentUser})=>{
         const loginuser={username:name,password:password }; 
         
         
-        fetch("http://localhost:8900/user/login",
+        fetch("https://hackathon2-node.herokuapp.com/user/login",
     {
         method:"POST",
         body: JSON.stringify(loginuser),
