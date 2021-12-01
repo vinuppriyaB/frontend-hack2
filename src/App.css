@@ -1,0 +1,112 @@
+body{
+  padding-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+   background-color: white;
+   
+ }
+ .App{
+   min-width: 100vh;
+ 
+ }
+
+.input_field{
+  /* height:300px;
+  width:1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  width:700px;
+  display: flex;
+  /* justify-content: space-around;
+  flex-wrap: wrap; */
+  flex-direction: column;
+  gap:30px;
+  margin:20px;
+  padding:20px 60px;
+}
+
+.popbox{
+  height: 100px;
+  width: 200px;
+ font-weight: bold;
+ font-size: 20px;
+  color: white;
+  position: absolute;
+  top:250px;
+  left: 900px;
+  text-align: center;
+  background-color:#f15275 ;
+  
+  border-radius: 20px;
+  padding: 5px;
+  
+  box-shadow: #f7a1b4 0px 3px 6px, #f7a1b4 0px 3px 6px;
+}
+
+.answer-list{
+  max-width: 900px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  
+  
+
+}
+.answer-card{
+  display: flex;
+  gap: 100px;
+ align-items: center;
+ border-bottom: 1px solid #51459E;
+
+}
+.info{
+  display: flex;
+  flex-direction: column;
+}
+.pasword-hint{
+  font-size: 12px;
+}
+/* p{
+  font-weight: 10px;
+  font-size: 20px;
+} */
+.companyName{
+  font-weight: bold !important;
+  font-size: 22px;
+}
+
+.answer-notfound{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}
+.post-answer{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}
+
+
+/* .nav-bar{
+  background-color: blue;
+} */
+.btn-color{
+  background-color: #51459E !important;
+  color: white !important;
+}
+.name{
+  color:#51459E;
+}
+
+.navbar-btn{
+  border: 1px solid white !important;
+  color:white !important;
+
+}
+.posted{
+  font-size: 10px;
+}
+
+
+
