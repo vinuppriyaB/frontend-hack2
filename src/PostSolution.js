@@ -7,7 +7,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 
 
-export function SolutionPage({currentUser,question}) {
+export function PostSolution({currentUser,question}) {
    
     const [popper,setpopper] = useState(false);
     const [answer, setAnswer] = useState("");
@@ -27,8 +27,9 @@ export function SolutionPage({currentUser,question}) {
         comment:answer,
         content: question }; 
         
-        if(question)
+        if(question&&currentUser)
         {
+            console.log(solution);
             fetch("https://hackathon2-node.herokuapp.com/question/addanswer",
             {
                 method:"POST",
@@ -56,24 +57,23 @@ export function SolutionPage({currentUser,question}) {
             }).catch((e)=> console.log("ERROR"))  
         }
         else{
-            window.alert("There is no question for your Answer");
+            window.alert("You must login to submit");
         }
     }
     
     return (
         <div className="post-answer">
-            <h3>Post your Answer</h3>
-            <div>
+            <p>Post your answer :</p>
+            
             <TextareaAutosize
                 maxRows={4}
                 aria-label="maximum height"
                 placeholder=""
                 value={answer}
-                style={{ width: 650,height:150 }}
+                style={{ maxWidth: 650,height:150 }}
                 onChange={event => setAnswer(event.target.value)}
             />
-            </div> 
-            
+           
             
             
             <div>

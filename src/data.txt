@@ -1,0 +1,34 @@
+[
+    {
+        "title":"How to fix missing dependency warning when using useEffect React Hook",
+        "body":"./src/components/BusinessesList.js
+                Line 51:  React Hook useEffect has a missing dependency: 'fetchBusinesses'.
+                Either include it or remove the dependency array  react-hooks/exhaustive-deps",
+        "tags":["reactjs","react-hook","create-react-app"],
+        "askBy":"Zoe",
+        "answerDetail":[
+            {
+                "user":"Joe",
+                "solution:"If you aren't using method anywhere apart from the effect, you could simply move it into the effect and avoid the warning",
+                "point":"25",
+            },
+            {
+                "user":"John",
+                "solution:"Declare function inside useEffect()",
+                "point":"34",
+            },
+            {
+                "user":"shiva",
+                "solution:"These warnings are very helpful for finding components that do not update consistently: Is it safe to omit functions from the list of dependencies?.
+However, if you want to remove the warnings throughout your project, you can add this to your ESLint configuration:",
+                "point":"7",
+            },
+            {
+                "user":"Jenny",
+                "solution:"This article is a good primer on fetching data with hooks: https://www.robinwieruch.de/react-hooks-fetch-data/
+Essentially, include the fetch function definition inside useEffect:",
+                "point":"23",
+            }
+        ]
+    }
+]

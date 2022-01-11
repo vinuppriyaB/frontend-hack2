@@ -1,9 +1,9 @@
 import { useState,useEffect } from "react";
 import {AnswerPage} from "./AnswerPage";
-import { SolutionPage } from "./SolutionPage";
+
 import {  Button } from '@material-ui/core'
-
-
+import {Footer} from "./Footer";
+ 
 export function AnswerList({question,setQuestion,currentUser,setCurrentUser}){
     
     const [answer, setAnswer] = useState([]);
@@ -13,7 +13,7 @@ export function AnswerList({question,setQuestion,currentUser,setCurrentUser}){
 
     
         const getAnswer=()=>{
-        fetch(`https://hackathon2-node.herokuapp.com/question/getanswer?content=${question}`,
+        fetch(`http://localhost:8900/question/getanswer?title=${question}`,
         {method:"GET",})
         .then((data)=>data.json())
         .then((ans)=>setAnswer(ans.answer) )
@@ -23,7 +23,7 @@ export function AnswerList({question,setQuestion,currentUser,setCurrentUser}){
 
         }
        )
-       
+    
                
       }
       useEffect(()=>getAnswer(),[setQuestion,question])
@@ -32,11 +32,17 @@ export function AnswerList({question,setQuestion,currentUser,setCurrentUser}){
     
       
     return(
+        <div className="answer-page">
+       
         <div className="answer-list">
-            <h1>{question}</h1>
-            {answer.length==0?  < AnswerNotAvailable question={question} currentUser={currentUser}/>:
-            <AnswerAvailable answer={answer} question={question} currentUser={currentUser}/>}
+           <div><h1>{question}</h1></div> 
            
+           
+            {answer.length==0?  < AnswerNotAvailable question={question} currentUser={currentUser}/> :
+            <AnswerAvailable answer={answer} question={question} currentUser={currentUser}/>}
+          
+      </div>
+            
       </div>
     )
 } 
@@ -44,6 +50,7 @@ export function AnswerList({question,setQuestion,currentUser,setCurrentUser}){
 export function AnswerAvailable({answer,question,currentUser})
 {
     return(
+
         <div>
            
             {
@@ -62,46 +69,58 @@ export function AnswerAvailable({answer,question,currentUser})
             <SolutionPage currentUser={currentUser}  question={question} />
         </div>
 
-        </div>
         
+        
+        
+        </div> 
 
     )
 }
+
+
 export function AnswerNotAvailable({question,currentUser}){
     const postquestion = () => {  
         const ques={content:question}; 
         
-        
-        fetch("https://hackathon2-node.herokuapp.com/question/postquestion",
+    if(currentUser)
     {
-        method:"POST",
-        body: JSON.stringify(ques),
-        headers:{"Content-Type":"application/json"},
-    }).then((res)=>{
+            fetch("http://localhost:8900/question/postquestion",
+        {
+            method:"POST",
+            body: JSON.stringify(ques),
+            headers:{"Content-Type":"application/json"},
+        }).then((res)=>{
+            
+            
+            // resetLoginForm();
+        }).catch((e)=> console.log("ERROR"))  
+
+    }   
+    else{
+        window.alert("You must login to submit");
+    } 
         
-        
-        // resetLoginForm();
-    }).catch((e)=> console.log("ERROR"))  
 }
 
 
     return(
         <div className="answer-notfound">
             <div><h4>Answer not Found</h4></div>
-            <div><p>Post your Question here . . .</p></div>
+            <div>Post your question here ...</div>
             <Button
                className="btn-color"
                variant="contained"
-               style={{width:"200px"}}
+               style={{width:"150px"}}
                 onClick={() => {
                     postquestion()
             }}
                 >
                 post question</Button>
-                <div>If you know the solution</div>
+                
                 <div>
             <SolutionPage currentUser={currentUser}  question={question} />
         </div>
+        
 
         </div>
     )

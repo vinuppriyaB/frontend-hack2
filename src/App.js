@@ -4,11 +4,15 @@ import {LoginForm} from "./LoginForm";
 import { NavBar } from "./NavBar";
 import {SignupForm} from "./SignupForm.js"
 import { useState } from "react";
-import {SolutionPage} from "./SolutionPage"
+
 import { Switch, Route,  Redirect } from "react-router-dom";
 import {Login } from "./Login";
-import {AnswerList} from "./AnswerList";
+import {PostQuestion} from "./PostQuestion";
 import {LoginNavbar} from "./LoginNavbar"
+import { AnswerPage } from "./AnswerPage";
+import {Footer} from "./Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {QuestionPage} from "./QuestionPage";
 
 function App() {
   const [currentUser,setCurrentUser]= useState("");
@@ -17,11 +21,11 @@ function App() {
 
   return (
     <div className="App">
-     
+    
       <Switch>
 
       <Route exact path="/">
-        <LoginNavbar/>
+        <LoginNavbar />
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
      
@@ -36,10 +40,19 @@ function App() {
         <SolutionPage currentUser={currentUser} setCurrentUser={setCurrentUser} question={question} setQuestion={setQuestion}/>
         </Route>  */}
 
-        <Route exact path="/answerpage">
-          <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} question={question} setQuestion={setQuestion}/>
-        <AnswerList question={question} setQuestion={setQuestion} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <Route exact path="/question">
+        
+          <QuestionPage currentUser={currentUser} setCurrentUser={setCurrentUser} question={question} setQuestion={setQuestion}/>
         </Route>
+        <Route  path="/answer">
+            <AnswerPage question={question} setQuestion={setQuestion} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+           
+            </Route>
+            <Route  path="/postquestion">
+            <PostQuestion question={question} setQuestion={setQuestion} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+           
+            </Route>
+
         
          <Route path="**">
           <NotFound />

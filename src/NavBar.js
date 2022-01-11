@@ -54,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '55ch',
     },
   },
 }));
@@ -67,18 +67,9 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
     <Box sx={{ flexGrow: 1,backgroundColor:"black", }}>
       <AppBar position="static" >
         <Toolbar sx={{ backgroundColor:"#51459E" }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 ,display: { xs: 'none', sm: 'block' }}}
-            
-          >
-            <MenuIcon />
-          </IconButton>
-          
-          <p>Stack<span className="OverFlow">OverFlow</span></p>
+
+         
+          <h6>Stack<span className="OverFlow">OverFlow</span></h6>
             
           
           <Search>
