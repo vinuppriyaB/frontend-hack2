@@ -29,7 +29,7 @@ export function PostSolution({currentUser,question}) {
         // console.log(solution)
         if(question&&currentUser)
         {
-            console.log(solution);
+            
             fetch("https://hackathon2-node.herokuapp.com/question/addanswer",
             {
                 method:"POST",
@@ -39,7 +39,7 @@ export function PostSolution({currentUser,question}) {
                 
                 if(res.status==200)
                 {
-                    // resetpost();
+                    resetpost();
                 }
 
 

@@ -19,16 +19,16 @@ export function PostQuestion({currentUser,question}) {
     
     const history = useHistory();
 
-    // const resetpost = (event) => {
-            
-    //      setAnswer("");
-            
-    //     }
+    const resetpost = (event) => {
+        setBody("")
+        setTitle("");
+        setTags("");
+        }
 
 
     const  submitPost= () => {  
         const tagArray=tags.split(",");
-        console.log(tagArray)
+        // console.log(tagArray)
         const question={
             askby:currentUser,
         title:title,
@@ -45,9 +45,12 @@ export function PostQuestion({currentUser,question}) {
                 headers:{"Content-Type":"application/json"},
             }).then((res)=>{
         
-                
-            console.log(res)
-                // resetpost();
+                if(res.status==200)
+                {
+                    resetpost();
+                }
+            
+
             }).catch((e)=> console.log("ERROR"))  
         }
         
@@ -82,7 +85,7 @@ export function PostQuestion({currentUser,question}) {
             multiple
             value={tags}
             onChange={event => {
-                console.log(event.target.value)
+                
                 setTags(event.target.value)}}
                 
             />

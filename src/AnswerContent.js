@@ -8,7 +8,7 @@ import { NoResult } from "./NoResult";
 
 
 export function AnswerContent({question,setQuestion,currentUser,setCurrentUser}){
-console.log(question);
+// console.log(question);
 const history = useHistory();
     const [answer, setAnswer] = useState({
         

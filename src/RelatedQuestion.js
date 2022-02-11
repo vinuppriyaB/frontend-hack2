@@ -18,7 +18,7 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
     .then((ques)=>{
         let temp=new Array();
         let temp2=[];
-        console.log(ques)
+        
         setQues(ques);
         for(let i=0;i<ques.length;i++)
         {
@@ -40,7 +40,7 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
            
   }
   useEffect(()=>getAnswer(),[question,setQuestion])
-  console.log(ques)
+ 
     return (
         <div className="relatedques-display">
         

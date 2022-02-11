@@ -1,7 +1,8 @@
 body{
   padding-top: 20px;
   font-family: 'Roboto', sans-serif !important;
-   background-color: #efedfc;
+   /* background-color: #efedfc; */
+   background-color: white ;
    font-size: 16px;
    
  }
