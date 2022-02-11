@@ -63,7 +63,7 @@ export function PostSolution({currentUser,question}) {
                 aria-label="maximum height"
                 placeholder=""
                 value={answer}
-                style={{ maxWidth: 700,height:150 }}
+                style={{ maxWidth: "100%",height:150 }}
                 onChange={event => setAnswer(event.target.value)}
                 />
             </div>

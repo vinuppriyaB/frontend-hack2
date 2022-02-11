@@ -60,7 +60,7 @@ export function PostQuestion({currentUser,question}) {
             <h6>Title</h6>
             <TextField id="outlined-basic"
             label="Title" 
-            
+            className="text_field"
             variant="outlined"  
             value={title}
             onChange={event => setTitle(event.target.value)}
@@ -76,7 +76,8 @@ export function PostQuestion({currentUser,question}) {
                 onChange={event => setBody(event.target.value)}
             />
             <h6>Tags</h6>
-            <TextField id="outlined-basic" label="Outlined" 
+            <TextField id="outlined-basic" label="Outlined"
+            className="text_field" 
             variant="outlined" 
             multiple
             value={tags}

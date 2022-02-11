@@ -34,8 +34,12 @@ export const QuestionPage = ({question,setQuestion,currentUser,setCurrentUser}) 
         </Col>
         <Col sm={0} md={0} lg={2} xl={2}></Col>
         
-        </Row>    
-        
+        </Row> 
+        <Row>   
+        <Col sm={12} md={12} lg={12}>
+        <Footer/>
+        </Col>
+        </Row>
           </Container>
           
 

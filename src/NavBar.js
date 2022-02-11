@@ -111,7 +111,7 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
             />
           </Search>
           <Box sx={{ flexGrow: 1 } }/>
-          <Box sx={{ flexGrow: .01 } }>
+          <Box sx={{ flexGrow: .1 } }>
           
          
           <Button variant="outlined"  
@@ -120,12 +120,7 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
             logoutfunction()
             history.push("/")} }>sign out</Button>
          </Box>
-          {/* <Box sx={{ flexGrow: .01 } }>
-          <Button variant="outlined" onClick={()=>history.push("/signup")}  color="inherit">sign up</Button>
           
-            
-            
-          </Box> */}
            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
            <IconButton
                size="large"

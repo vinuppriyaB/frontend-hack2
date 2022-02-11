@@ -177,36 +177,7 @@ body{
   display: flex;
   flex-direction: column;
 }
-.footer{
-  background-color: #51459E !important;
-  color: white !important;
-  /* height:100px; */
-  /* width: 100%; */
-  /* position: absolute;
-  bottom:-1200px; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  gap:30px;
-  padding: 50px;
-
-}
-@media screen and (max-width:940px){
- .footer{
-  background-color: #51459E !important;
-  color: white !important;
- 
-  display: flex;
-  align-items: flex-start;
-  
-  flex-direction: column;
-  gap:30px;
-  padding: 50px 50px;
-
- }
-  
-}
 
 
 

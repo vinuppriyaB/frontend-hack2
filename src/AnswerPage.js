@@ -39,7 +39,11 @@ export const AnswerPage = ({question,setQuestion,currentUser,setCurrentUser}) =>
           <Col sm={0} md={0} lg={1} xl={2}></Col>
           
           </Row>  
-
+          <Row>   
+          <Col sm={12} md={12} lg={12}>
+          <Footer/>
+          </Col>
+          </Row>
           
             </Container>
             
