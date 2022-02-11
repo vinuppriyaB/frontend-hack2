@@ -1,22 +1,15 @@
-import * as React from 'react';
+import React,{useState,useEffect} from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import { useHistory } from "react-router";
+import Avatar from '@mui/material/Avatar';
+import "./NavBar.css";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -31,7 +24,7 @@ const Search = styled('div')(({ theme }) => ({
   width: '50%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: '30%',
+    width: '60%',
   },
 }));
 
@@ -56,20 +49,49 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       width: '55ch',
     },
+    
   },
 }));
 
 export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
   // #F2F7FF
     const history = useHistory();
+    const handleKeyPress = (event) => {
+   
+      if(event.key === 'Enter'){
+        // localStorage.setItem("question",question);
+        history.push("/answer")
+      }
+    }
+
+    const updatecurrentUser=()=>{
+      const name=localStorage.getItem("name");
+    
+    setCurrentUser(name);
+    
+  
+  }
+  updatecurrentUser();   
+  
+
+    const logoutfunction=()=>{
+      localStorage.removeItem("name");
+      localStorage.removeItem("token");
+      
+      
+      setCurrentUser("");
+      setQuestion("");
+    
+    history.push("/")
+    }
   return (
-      <div className="nav-bar">
-    <Box sx={{ flexGrow: 1,backgroundColor:"black", }}>
+      <div >
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" >
         <Toolbar sx={{ backgroundColor:"#51459E" }}>
 
          
-          <h6>Stack<span className="OverFlow">OverFlow</span></h6>
+          <h6 className="logoName">Stack<span className="OverFlow">OverFlow</span></h6>
             
           
           <Search>
@@ -80,8 +102,10 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
               placeholder="Search…"
               value={question}
               style={{color:"white"}}
-                onChange ={event => {setQuestion(event.target.value)
-                                    
+              onKeyPress={(event)=>{
+                handleKeyPress(event)} } 
+                onChange ={event => {
+                  setQuestion(event.target.value)
                                         }}
             //   inputProps={{ 'aria-label': 'search' }}
             />
@@ -92,7 +116,9 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
          
           <Button variant="outlined"  
           className="navbar-btn"
-          onClick={()=>history.push("/")} >sign out</Button>
+          onClick={()=>{
+            logoutfunction()
+            history.push("/")} }>sign out</Button>
          </Box>
           {/* <Box sx={{ flexGrow: .01 } }>
           <Button variant="outlined" onClick={()=>history.push("/signup")}  color="inherit">sign up</Button>
@@ -111,18 +137,14 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
             //    onClick={handleProfileMenuOpen}
                color="inherit"
              >
-               <AccountCircle />
+             <Avatar className="avatar" alt={currentUser} src={currentUser}/>
+
+
                </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              
-               {currentUser}
-              
-             
-             </IconButton>
+
+
+
+
              
           </Box> 
           

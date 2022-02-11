@@ -66,7 +66,7 @@ export function AnswerAvailable({answer,question,currentUser})
 
         
          <div>
-            <SolutionPage currentUser={currentUser}  question={question} />
+
         </div>
 
         
@@ -118,7 +118,7 @@ export function AnswerNotAvailable({question,currentUser}){
                 post question</Button>
                 
                 <div>
-            <SolutionPage currentUser={currentUser}  question={question} />
+
         </div>
         
 

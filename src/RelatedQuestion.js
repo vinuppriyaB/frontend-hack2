@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import { useHistory } from "react-router";
 import {NoResult} from "./NoResult";
 import Button from '@mui/material/Button';
+import "./RelatedQuestion.css";
 
 export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser}) => {
     
@@ -12,13 +13,13 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
   
 
   const getAnswer=()=>{
-    fetch("http://localhost:8900/question//getavailquestion")
+    fetch("https://hackathon2-node.herokuapp.com/question/getavailquestion")
     .then((data)=>data.json())
     .then((ques)=>{
         let temp=new Array();
         let temp2=[];
         console.log(ques)
-        
+        setQues(ques);
         for(let i=0;i<ques.length;i++)
         {
             temp[i]=ques[i].title;
@@ -28,7 +29,7 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
                 temp2.push(ques[i])
             }
         }
-        setQues(ques);
+        
         
         }
     ).catch((e)=>
@@ -39,7 +40,7 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
            
   }
   useEffect(()=>getAnswer(),[question,setQuestion])
-  
+  console.log(ques)
     return (
         <div className="relatedques-display">
         
@@ -54,30 +55,30 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
             <div>
             <Button variant="contained" style={{textTransform: "capitalize"}}
             onClick={async(event)=>{
-               
+             
         history.push("/postquestion");}}
         >Ask Question</Button>
             </div>
            
         </div>
-        
-        
-       <div>
-            {(ques.length>0) ? ques.map((q,index)=>(
-                <QuestionList 
-                ques={q}
-                key={index}
-                setQuestion={setQuestion}
-                question={question} 
-                currentUser={currentUser}
-                /> 
+        <div className="relatedques_container">
+        {(ques.length>0) ? ques.map((q,index)=>(
+            <QuestionList 
+            ques={q}
+            key={index}
+            setQuestion={setQuestion}
+            question={question} 
+            currentUser={currentUser}
+            /> 
 
-                )) : <NoResult
-                    setQuestion={setQuestion}
-                            question={question} 
-                    />
-            }
-       </div>
+            )) : <NoResult
+                setQuestion={setQuestion}
+                        question={question} 
+                />
+        }
+   </div>
+        
+
            
            
         </div>
@@ -90,18 +91,18 @@ export function QuestionList ({ques,question,setQuestion}){
     const history = useHistory();
     const searchanswer=(event)=>{
         setQuestion(event.target.outerText)
-        history.push("/answerpage");
+        history.push("/answer");
     }
    
 
     return(
        <div className='relatedques-box'>
        <div className="ques-details">
-        <div>
-          <p className="va-count">{ques.answerDetail[0].point}</p>
+        <div className="count_box">
+          <p className="va-count">{ques.answerDetail.length}</p>
           <p className="va-name">votes</p>
         </div>
-        <div className="answer-count-box">
+        <div className="answer-count-box count_box">
             <p className="va-count">{ques.answerDetail.length}</p>
           <p className="va-name">answer</p>
         </div>
@@ -110,17 +111,21 @@ export function QuestionList ({ques,question,setQuestion}){
        <div className="ques-content">
             <div className="ques-title"
             onClick={async(event)=>{
-                await setQuestion(ques.title)
-        history.push("/answer");}}
+                        await setQuestion(ques.title)
+                        // localStorage.removeItem("question");
+                        // localStorage.setItem("question",ques.title);
+                        history.push("/answer");}}
             >
                 Q: { ques.title}
               
             </div>
             <div>
-            {ques.body}
+            <p>{ques.body}</p>
               </div>
             <div className="tags-user">
-       <div className="tags-content">{ques.tags.map((t,index)=>{ return <div key={index} className="tag-box">{t}</div> })}</div>
+       {ques.tags ? <div className="tags-content">
+       { ques.tags.map((t,index)=>{ return <div key={index} className="tag-box">{t}</div> })}
+       </div>:""}
        <div className="user-name">asked {ques.date} by <span style={{color:"rgb(4, 93, 177)"}}>{ques.askBy}</span></div>
        
        </div>
@@ -132,3 +137,4 @@ export function QuestionList ({ques,question,setQuestion}){
         </div>
     )
 }
+

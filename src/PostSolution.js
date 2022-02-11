@@ -1,4 +1,4 @@
-
+import "./PostSolution.css";
 import Button from '@mui/material/Button';
 import { useState } from "react";
 import { useHistory } from 'react-router';
@@ -26,7 +26,7 @@ export function PostSolution({currentUser,question}) {
         const solution={username:currentUser,
         comment:answer,
         content: question }; 
-        
+        // console.log(solution)
         if(question&&currentUser)
         {
             console.log(solution);
@@ -36,24 +36,16 @@ export function PostSolution({currentUser,question}) {
                 body: JSON.stringify(solution),
                 headers:{"Content-Type":"application/json"},
             }).then((res)=>{
-        
-                if(res.status==400)
+                
+                if(res.status==200)
                 {
-                    window.alert("some issues");
+                    // resetpost();
                 }
-                else
-                {
-                    setpopper(true);
-                    setTimeout(()=>{
-                    setpopper(false);
 
-                    },2000)
-
-                }
 
                 
             
-                resetpost();
+                
             }).catch((e)=> console.log("ERROR"))  
         }
         else{
@@ -62,20 +54,19 @@ export function PostSolution({currentUser,question}) {
     }
     
     return (
-        <div className="post-answer">
+        <div className="post_solution">
             <p>Post your answer :</p>
-            
-            <TextareaAutosize
+            <div className="post_SolutionBox">
+                <TextareaAutosize
                 maxRows={4}
+                fullWidth required
                 aria-label="maximum height"
                 placeholder=""
                 value={answer}
-                style={{ maxWidth: 650,height:150 }}
+                style={{ maxWidth: 700,height:150 }}
                 onChange={event => setAnswer(event.target.value)}
-            />
-           
-            
-            
+                />
+            </div>
             <div>
             <Button
             className="btn-color"

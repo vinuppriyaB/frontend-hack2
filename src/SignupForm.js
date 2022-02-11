@@ -1,19 +1,17 @@
-
+import axios from "axios";
 import React from 'react'
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useHistory } from "react-router";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {LoginNavbar} from "./LoginNavbar"
-
-
 import { useState } from "react";
 
 
 export function SignupForm({setCurrentUser,currentUser}){
     
 
-    const paperStyle={padding :50,height:'50vh',width:380, margin:"100px auto"}
+    const paperStyle={padding :50,height:'50vh',width:450, margin:"100px auto"}
     const avatarStyle={backgroundColor:"#51459E"}
     const btnstyle={margin:'20px 0',backgroundColor:"#51459E"}
     const textstyle={margin:'10px 0'}
@@ -31,39 +29,41 @@ export function SignupForm({setCurrentUser,currentUser}){
             setEmail("");
             
         };
-    const createAccount = () => {  
-        const loginuser={username:name,password:password }; 
+    const createAccount = async() => {  
+        const loginuser={username:name,password:password ,email:email}; 
+        try{
+            var response=await axios.post("https://hackathon2-node.herokuapp.com/user/signup",{
+                username:name,
+                password:password,
+                email:email
+        })
        
-        
-        fetch("https://hackathon2-node.herokuapp.com/user/signup",
-    {
-        method:"POST",
-        body: JSON.stringify(loginuser),
-        headers:{"Content-Type":"application/json"},
-    }).then((res)=>{
-        setCurrentUser(name)
-        if(res.status==400)
-          {
+        // console.log(response.data);
+            
+        if(response.data)
+        {
+            
+            localStorage.setItem("name",name);
+            setCurrentUser(name);
+            history.push("/question");
+            resetLoginForm();
+            // console.log(userName)
+           
+            
+        }else{
             window.alert("invalid credential \n Try with other name");
-          }
-          else
-          {
-            setpopper(true);
-            setTimeout(()=>{
-              setpopper(false);
-
-            },2000)
-            history.push("/answerpage");
-
-          }
+        }
+        }catch(e){
+            console.warn(e)
+        }
         
-        resetLoginForm();
-    }).catch((e)=> console.log("ERROR"))  
+
+
 }
 
     return(
         <div>
-            {/* <LoginNavbar/> */}
+
         
         
             <Paper elevation={10} style={paperStyle}>

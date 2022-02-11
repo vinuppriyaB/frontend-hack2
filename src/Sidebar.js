@@ -3,6 +3,7 @@ import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 
 import WorkOutlinedIcon from '@mui/icons-material/WorkOutlined';
 import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
+import "./Sidebar.css";
 const sidebardata=[
     {
         title:"HOME",
@@ -20,11 +21,18 @@ const sidebardata=[
             {
                 name:"Tags",
                 icon:" ",
+                css:{
+                    paddingLeft:"0px"
+                }
             },
             {
                 name:"User",
                 icon:" ",
+                css:{
+                    paddingLeft:"0px"
+                }
             },
+            
         ]
         
     },
@@ -46,10 +54,16 @@ const sidebardata=[
             {
                 name:"Jobs",
                 icon:" ",
+                css:{
+                    paddingLeft:"0px"
+                }
             },
             {
                 name:"companies",
                 icon:" ",
+                css:{
+                    paddingLeft:"0px"
+                }
             },
         ]
         
@@ -62,7 +76,7 @@ const sidebardata=[
                 name:"Create Free Team",
                 icon:<WorkOutlinedIcon/> ,
                 css:{
-                    paddingLeft:"15px"
+                    paddingLeft:"0px"
                 }
             }
         ]
@@ -71,19 +85,24 @@ const sidebardata=[
 ]
 export const Sidebar = () => {
     return (
-        <div className="side-bar"> 
+        <div className="side_bar" > 
+        <div class="sidebar_empty"></div>
+        <div className="sidebar_content">
             {sidebardata.map((d,index)=>{
                 return (
-                    <div>
-                    <div>{d.title}</div>
+
+                    <div className="sidebarRow" >
+                    <div className="sidebarRow_title"><p>{d.title}</p></div>
                     <div>{d.subtitle? d.subtitle.map((s,index)=>{
-                        return <div style={s.css}>{s.icon} {s.name}</div>
+                        return <div className="sidebarRow_subtitle"style={s.css}><p>{s.icon} {s.name}</p></div>
                     }):""}</div>
+
                     </div>
+
 
                 ) 
             })}
-            
+            </div>  
         </div>
     )
 }

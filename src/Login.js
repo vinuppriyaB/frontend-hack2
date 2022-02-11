@@ -3,7 +3,7 @@ import React from 'react'
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useHistory } from "react-router";
-
+import axios from "axios";
 import {LoginNavbar} from "./LoginNavbar"
 import { useState } from "react";
 
@@ -11,53 +11,52 @@ import { useState } from "react";
 export const Login=({setCurrentUser,currentUser})=>{
     
 
-    const paperStyle={padding :50,height:'50vh',width:380, margin:"100px auto"}
+    const paperStyle={padding :50,height:'50vh',width:450, margin:"100px auto"}
     const avatarStyle={backgroundColor:"#51459E"}
     const btnstyle={margin:'20px 0',backgroundColor:"green"}
     const textstyle={margin:'20px 0'}
 
     const [popper,setpopper] = useState(false);
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
     
     const history = useHistory();
     const resetLoginForm = (event) => {
-            setName("");
+        setEmail("");
             setPassword("");
           
             
         };
-    const loginprocess = () => {  
-        const loginuser={username:name,password:password }; 
+    const loginprocess = async() => {  
+        const loginuser={email:email,password:password }; 
         
         
-        fetch("https://hackathon2-node.herokuapp.com/user/login",
-    {
-        method:"POST",
-        body: JSON.stringify(loginuser),
-        headers:{"Content-Type":"application/json"},
-    }).then((res)=>{
-        setCurrentUser(name)
-        if(res.status==401)
-          {
-            window.alert("Invalid user account");
-          }
-          else
-          {
-            setpopper(true);
-            setTimeout(()=>{
-              setpopper(false);
+        try{
+            var response=await axios.post("https://hackathon2-node.herokuapp.com/user/login",{
+                email:email,
+                password:password
+        })
+       
+        // console.log(response.data);
+            
+        if(response.data)
+        {
+            await localStorage.setItem("token",response.data.token);
+            localStorage.setItem("name",response.data.userName);
+            setCurrentUser(response.data.userName);
+            
 
-            },2000)
-            history.push("/answerpage");
 
-          }
-         
-        
-        resetLoginForm();
-    }).catch((e)=> console.log("ERROR"))  
-}
+            history.push("/question");
+            // console.log(userName)
+           
+            
+        }
+        }catch(e){
+            console.warn(e)
+        }
+    }
 
     return(
         <div>
@@ -69,12 +68,12 @@ export const Login=({setCurrentUser,currentUser})=>{
                      <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
                     <h2>Log In</h2>
                 </Grid>
-                <TextField label='Username' 
-                placeholder='Enter username'  
+                <TextField label='Email' 
+                placeholder='Enter Email'  
                 style={textstyle}
                 fullWidth required
-                value={name}
-                onChange={event => setName(event.target.value)}
+                value={email}
+                onChange={event => setEmail(event.target.value)}
                 />
                 <TextField 
                 label='Password' 
