@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import { useHistory } from "react-router";
+import Avatar from '@mui/material/Avatar';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -109,18 +111,10 @@ export  function LoginNavbar({currentUser,setCurrentUser}) {
               
              
              </IconButton>
-             <IconButton
-               size="large"
-               edge="end"
-               aria-label="account of current user"
-               aria-controls={currentUser}
-               aria-haspopup="true"
-               style={{color:"white"}}
-            //    onClick={handleProfileMenuOpen}
-               color="inherit"
-             >
-               <AccountCircle />
-               </IconButton>
+
+             
+               <Avatar alt={currentUser} src={currentUser} />
+
           </Box> 
           
         </Toolbar>
@@ -130,3 +124,15 @@ export  function LoginNavbar({currentUser,setCurrentUser}) {
     </div>
   );
 }
+ //  <AccountCircle />
+
+//  <IconButton
+//  size="large"
+//  edge="end"
+//  aria-label="account of current user"
+//  aria-controls={currentUser}
+//  aria-haspopup="true"
+//  style={{color:"white"}}
+// //    onClick={handleProfileMenuOpen}
+//  color="inherit"
+// >

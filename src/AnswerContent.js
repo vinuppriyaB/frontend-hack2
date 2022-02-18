@@ -42,6 +42,9 @@ const history = useHistory();
       }
       useEffect(()=>getAnswer(),[question,setQuestion])
 
+const date=answer.date.split("T")[0];
+
+
 
     return(
 
@@ -74,7 +77,7 @@ const history = useHistory();
         <div className="tags-content">
         {answer.tags.map((t,index)=>{ return <div key={index} className="tag-box">{t}</div> })}
         </div>
-        <div className="user-name">asked {answer.date} by <span style={{color:"rgb(4, 93, 177)"}}>{answer.askBy}</span></div>
+        <div className="user-name">asked {date} by <span style={{color:"rgb(4, 93, 177)"}}>{answer.askBy}</span></div>
         
         </div>
         </div>

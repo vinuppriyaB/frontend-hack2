@@ -55,12 +55,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
   // #F2F7FF
+  console.log(currentUser)
     const history = useHistory();
+const [typedQuestion,setTypedQuestion]=useState("");
     const handleKeyPress = (event) => {
    
       if(event.key === 'Enter'){
+        
+        setQuestion(event.target.value)
         // localStorage.setItem("question",question);
-        history.push("/answer")
+        history.push("/question")
       }
     }
 
@@ -100,14 +104,14 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              value={question}
+              value={typedQuestion}
               style={{color:"white"}}
               onKeyPress={(event)=>{
                 handleKeyPress(event)} } 
                 onChange ={event => {
-                  setQuestion(event.target.value)
+                  setTypedQuestion(event.target.value)
                                         }}
-            //   inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 } }/>
@@ -132,7 +136,7 @@ export  function NavBar({currentUser,setCurrentUser,question,setQuestion}) {
             //    onClick={handleProfileMenuOpen}
                color="inherit"
              >
-             <Avatar className="avatar" alt={currentUser} src={currentUser}/>
+             <Avatar className="avatar" alt={currentUser} src={currentUser} />
 
 
                </IconButton>

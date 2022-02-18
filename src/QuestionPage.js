@@ -10,6 +10,7 @@ import{Sidebar} from "./Sidebar";
 import "./QuestionPage.css";
 
 export const QuestionPage = ({question,setQuestion,currentUser,setCurrentUser}) => {
+  console.log(currentUser)
     return (
       <Container fluid>
 

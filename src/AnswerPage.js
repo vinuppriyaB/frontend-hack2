@@ -10,6 +10,7 @@ import {Sidebar} from "./Sidebar";
 import { PostSolution } from './PostSolution';
 import "./AnswerPage.css";
 export const AnswerPage = ({question,setQuestion,currentUser,setCurrentUser}) => {
+  console.log(currentUser)
     return (
         <div>
        

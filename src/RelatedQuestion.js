@@ -7,28 +7,48 @@ import Button from '@mui/material/Button';
 import "./RelatedQuestion.css";
 
 export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser}) => {
-    
-  const [ques,setQues]=useState([]);
+    console.log(question)
+   console.log("questionPage") 
+  const [related,setRelated]=useState([]);
+  const [matched,setMatched]=useState([]);
   const history = useHistory();
   
 
   const getAnswer=()=>{
+      console.log("functioncall")
     fetch("https://hackathon2-node.herokuapp.com/question/getavailquestion")
     .then((data)=>data.json())
     .then((ques)=>{
-        let temp=new Array();
+        let temp1=[];
         let temp2=[];
+        console.log(question)
         
-        setQues(ques);
-        for(let i=0;i<ques.length;i++)
+        if(question)
         {
-            temp[i]=ques[i].title;
-            
-            if(temp[i].includes(question))
+            for(let i=0;i<ques.length;i++)
             {
-                temp2.push(ques[i])
+                for(let j=0;j<ques[i].tags.length;j++)
+                {
+                    if(question.toLowerCase().includes(ques[i].tags[j].toLowerCase()))
+                    {
+                        temp1.push(ques[i])
+                    }
+                    else{
+                        temp2.push(ques[i])
+                    }
+                }
+            
+            
             }
+            console.log(temp1)
+            console.log(temp2)
+        setMatched(temp1);
+        setRelated(temp2);
+        }else{
+            setRelated(ques);
+            console.log()
         }
+        
         
         
         }
@@ -39,7 +59,7 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
     )
            
   }
-  useEffect(()=>getAnswer(),[question,setQuestion])
+  useEffect(()=>getAnswer(),[question,setQuestion, ])
  
     return (
         <div className="relatedques-display">
@@ -50,7 +70,7 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
                 <br></br>
                 <p >Results for {question}</p>
                 <br></br>
-                <h5 >{ques.length} results</h5>
+                <h5 >{related.length} results</h5>
             </div>
             <div>
             <Button variant="contained" style={{textTransform: "capitalize"}}
@@ -62,16 +82,27 @@ export const RelatedQuestion = ({question,setQuestion,currentUser,setCurrentUser
            
         </div>
         <div className="relatedques_container">
-        {(ques.length>0) ? ques.map((q,index)=>(
+        {(matched.length>0||related.length>0) ? <div> {matched.map((q,index)=>(
             <QuestionList 
             ques={q}
             key={index}
             setQuestion={setQuestion}
             question={question} 
             currentUser={currentUser}
-            /> 
+            /> ))}
+            
+                {related.map((q,index)=>(
+                    <QuestionList 
+                    ques={q}
+                    key={index}
+                    setQuestion={setQuestion}
+                    question={question} 
+                    currentUser={currentUser}
+                    />))}
 
-            )) : <NoResult
+            </div>
+
+            : <NoResult
                 setQuestion={setQuestion}
                         question={question} 
                 />
@@ -94,12 +125,12 @@ export function QuestionList ({ques,question,setQuestion}){
         history.push("/answer");
     }
    
-
+console.log(ques.answerDetail[0])
     return(
        <div className='relatedques-box'>
        <div className="ques-details">
         <div className="count_box">
-          <p className="va-count">{ques.answerDetail.length}</p>
+          <p className="va-count">{ques.tags.length}</p>
           <p className="va-name">votes</p>
         </div>
         <div className="answer-count-box count_box">
@@ -126,7 +157,7 @@ export function QuestionList ({ques,question,setQuestion}){
        {ques.tags ? <div className="tags-content">
        { ques.tags.map((t,index)=>{ return <div key={index} className="tag-box">{t}</div> })}
        </div>:""}
-       <div className="user-name">asked {ques.date} by <span style={{color:"rgb(4, 93, 177)"}}>{ques.askBy}</span></div>
+       <div className="user-name">asked {ques.date.split("T")[0]} by <span style={{color:"rgb(4, 93, 177)"}}>{ques.askBy}</span></div>
        
        </div>
             

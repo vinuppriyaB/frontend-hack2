@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export const Login=({setCurrentUser,currentUser})=>{
     
-
+    setCurrentUser(localStorage.getItem("name")); 
     const paperStyle={padding :50,height:'50vh',width:450, margin:"100px auto"}
     const avatarStyle={backgroundColor:"#51459E"}
     const btnstyle={margin:'20px 0',backgroundColor:"green"}
@@ -33,21 +33,25 @@ export const Login=({setCurrentUser,currentUser})=>{
         
         
         try{
-            var response=await axios.post("https://hackathon2-node.herokuapp.com/user/login",{
+            var response=await axios.post("http://localhost:8900/user/login",{
                 email:email,
                 password:password
         })
        
         // console.log(response.data);
-            
+ 
         if(response.data)
         {
+            console.log(response)
+            console.log(response.data)
             await localStorage.setItem("token",response.data.token);
-            localStorage.setItem("name",response.data.userName);
-            setCurrentUser(response.data.userName);
+            await localStorage.setItem("name",response.data.username);
             
-
-
+            
+            setCurrentUser(localStorage.getItem("name"));
+            console.log(response.data.username)
+            console.log(currentUser);
+            console.log(localStorage.getItem("name"));
             history.push("/question");
             // console.log(userName)
            

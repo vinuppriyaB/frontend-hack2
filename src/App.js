@@ -1,6 +1,6 @@
 import react from "react";
 import './App.css';
-import {LoginForm} from "./LoginForm";
+
 import { NavBar } from "./NavBar";
 import {SignupForm} from "./SignupForm.js"
 import { useState } from "react";
@@ -25,20 +25,16 @@ function App() {
       <Switch>
 
       <Route exact path="/">
-        <LoginNavbar />
+
           <Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
      
        
         <Route  path="/signup">
-        <LoginNavbar/>
+
         <SignupForm currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </Route>
 
-        {/* <Route exact path="/question">
-        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-        <SolutionPage currentUser={currentUser} setCurrentUser={setCurrentUser} question={question} setQuestion={setQuestion}/>
-        </Route>  */}
 
         <Route exact path="/question">
         
